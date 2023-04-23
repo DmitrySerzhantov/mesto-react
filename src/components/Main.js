@@ -1,18 +1,43 @@
 import React from "react";
 import api from "../utils/api.js";
+import Card from "./Card";
 
 function Main(props) {
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("");
-
+  const [cards, setCards] = React.useState([]);
   React.useEffect(() => {
-    api.getUserProfile().then((res) => {
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setUserAvatar(res.avatar);
-    });
-  });
+    api
+      .getUserProfile()
+      .then((res) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards(
+          res.map((item) => ({
+            id: item._id,
+            link: item.link,
+            likes: item.likes.length,
+            name: item.name,
+          }))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  function handleCardClick(card) {
+    props.setSelectedCard(card.cards);
+  }
 
   return (
     <main className="content">
@@ -43,6 +68,17 @@ function Main(props) {
           onClick={props.onAddPlace}
         ></button>
       </section>
+      <ul className="cards" aria-label="контентная часть страницы">
+        {cards.map(({ id, ...cards }) => (
+          <Card
+            key={id}
+            cards={cards}
+            onCardClick={(evt) => {
+              handleCardClick(evt);
+            }}
+          />
+        ))}
+      </ul>
     </main>
   );
 }

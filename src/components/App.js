@@ -5,7 +5,6 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import React from "react";
-import Card from "./Card";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -13,33 +12,13 @@ function App() {
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] =
     React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
-  function handleCardClick(card) {
-    setSelectedCard({ value: true, card: card });
-    // console.log(selectedCard);
-  }
-
-  function handleEditAvatarClick() {
-    if (isEditAvatarPopupOpen) {
-      return "popup_open";
-    }
-  }
-  function handleAddPlaceClick() {
-    if (isAddPlacePopupOpen) {
-      return "popup_open";
-    }
-  }
-  function handleEditProfileClick() {
-    if (isEditProfilePopupOpen) {
-      return "popup_open";
-    }
-  }
   function closeAllPopups() {
     setisEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setisAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard({});
   }
 
   return (
@@ -55,21 +34,16 @@ function App() {
         onAddPlace={() => {
           setisAddPlacePopupOpen(true);
         }}
-      />
-      <Card
-        onCardClick={(props) => {
-          handleCardClick(props);
+        setSelectedCard={(card) => {
+          setSelectedCard({ value: true, link: card.link, name: card.name });
         }}
       />
-
       <Footer />
-
       <PopupWithForm
         name="cards-add"
         title="Новое место"
-        textButton="Сохранить"
         id="1"
-        isOpen={handleAddPlaceClick()}
+        isOpen={isAddPlacePopupOpen}
         onClose={() => {
           closeAllPopups();
         }}
@@ -102,9 +76,8 @@ function App() {
       <PopupWithForm
         name="edit-add"
         title="Редактировать профиль"
-        textButton="Сохранить"
         id="0"
-        isOpen={handleEditProfileClick()}
+        isOpen={isEditProfilePopupOpen}
         onClose={(evt) => {
           closeAllPopups(evt.target);
         }}
@@ -145,9 +118,8 @@ function App() {
       <PopupWithForm
         name="avatar-update"
         title="Обновить аватар"
-        textButton="Сохранить"
         id="3"
-        isOpen={handleEditAvatarClick()}
+        isOpen={isEditAvatarPopupOpen}
         onClose={() => {
           closeAllPopups(true);
         }}

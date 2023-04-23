@@ -10,7 +10,7 @@ function ImagePopup(props) {
       <form className="popup-img__container">
         <img
           className="popup-img__image"
-          src={props.card.value ? `${props.card.card.link}` : `${null}`}
+          src={props.card.value ? `${props.card.link}` : `${null}`}
           alt="Увеличенное изображение карточки"
         />
         <h2 className="popup-img__name-img">{props.card.name}</h2>
