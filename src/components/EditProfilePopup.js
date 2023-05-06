@@ -27,9 +27,7 @@ function EditProfilePopup(props) {
       title="Редактировать профиль"
       id="0"
       isOpen={props.isOpen}
-      onClose={(evt) => {
-        props.onClose(evt.target);
-      }}
+      onClose={props.onClose}
     >
       <input
         id="input-name"
@@ -39,8 +37,8 @@ function EditProfilePopup(props) {
         maxLength="40"
         className="popup__input popup__input_text_name"
         name="name"
+        value={name ?? ""}
         placeholder="Имя"
-        defaultValue={name}
         onChange={(e) => setName(e.target.value)}
       />
       <span id="input-name-error" className="popup__text-error">
@@ -54,8 +52,8 @@ function EditProfilePopup(props) {
         maxLength="200"
         className="popup__input popup__input_text_job"
         name="info"
+        value={description ?? ""}
         placeholder="Вид деятельности"
-        defaultValue={description}
         onChange={(e) => setDescription(e.target.value)}
       />
       <span id="input-job-error" className="popup__text-error">

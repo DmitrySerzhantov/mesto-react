@@ -9,9 +9,7 @@ function EditAvatarPopup(props) {
     props.onUpdateAvatar({
       avatar: ref.current.value,
     });
-    e.target.reset();
   }
-  console.log();
   return (
     <PopupWithForm
       onSubmit={handleSubmit}
@@ -19,9 +17,7 @@ function EditAvatarPopup(props) {
       title="Обновить аватар"
       id="3"
       isOpen={props.isOpen}
-      onClose={() => {
-        props.onClose(true);
-      }}
+      onClose={props.onClose}
     >
       <input
         required

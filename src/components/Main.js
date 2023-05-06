@@ -8,9 +8,8 @@ function Main(props) {
   const currentUser = useContext(CurrentUserContext);
 
   function handleCardClick(card) {
-    props.setSelectedCard(card.cards);
+    props.setSelectedCard(card);
   }
-
   return (
     <main className="content">
       <section className="profile" aria-label="секция профиля страницы">
@@ -41,16 +40,14 @@ function Main(props) {
         ></button>
       </section>
       <ul className="cards" aria-label="контентная часть страницы">
-        {props.cards.map(({ _id, ...cards }) => (
+        {props.cards.map(({ _id, ...card }) => (
           <Card
             onCardDelete={props.onCardDelete}
             onCardLike={props.onCardLike}
             key={_id}
             id={_id}
-            cards={cards}
-            onCardClick={(evt) => {
-              handleCardClick(evt);
-            }}
+            card={card}
+            onCardClick={handleCardClick}
           />
         ))}
       </ul>

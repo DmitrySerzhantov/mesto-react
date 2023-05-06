@@ -11,9 +11,7 @@ function AddPlacePopup(props) {
       name: cardName,
       link: cardLink,
     });
-    e.target.reset();
   }
-
   return (
     <PopupWithForm
       onSubmit={handleSubmit}
@@ -21,9 +19,7 @@ function AddPlacePopup(props) {
       title="Новое место"
       id="1"
       isOpen={props.isOpen}
-      onClose={(evt) => {
-        props.onClose(evt.target);
-      }}
+      onClose={props.onClose}
     >
       <input
         required

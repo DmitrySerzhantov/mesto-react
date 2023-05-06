@@ -26,15 +26,7 @@ function App() {
     api
       .getInitialCards()
       .then((res) => {
-        setCards(
-          res.map((item) => ({
-            _id: item._id,
-            link: item.link,
-            likes: item.likes,
-            name: item.name,
-            owner: { _id: item.owner._id },
-          }))
-        );
+        setCards(res);
       })
       .catch((err) => {
         console.log(err);
@@ -43,7 +35,7 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.cards.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.card.likes.some((i) => i._id === currentUser._id);
 
     if (!isLiked) {
       api.likeCard(card.id).then((newCard) => {
@@ -117,9 +109,10 @@ function App() {
         console.log(err);
       });
   }
+
   return (
-    <div className="page">
-      <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
         <Header />
         <Main
           cards={cards}
@@ -135,7 +128,7 @@ function App() {
             setisAddPlacePopupOpen(true);
           }}
           setSelectedCard={(card) => {
-            setSelectedCard({ value: true, link: card.link, name: card.name });
+            setSelectedCard({ value: true, ...card });
           }}
         />
         <Footer />
@@ -166,8 +159,8 @@ function App() {
             closeAllPopups();
           }}
         />
-      </CurrentUserContext.Provider>
-    </div>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
