@@ -68,6 +68,7 @@ export class Api {
       return this._checkStatus(res);
     });
   }
+
   deleteLikeCard(id) {
     return fetch(`${this._url}cards/${id}/likes`, {
       method: "DELETE",
@@ -76,7 +77,7 @@ export class Api {
       return this._checkStatus(res);
     });
   }
-  updateAvatar(data) {
+  setUserAvatar(data) {
     return fetch(this._url + "users/me/avatar", {
       method: "PATCH",
       headers: this._headers,
