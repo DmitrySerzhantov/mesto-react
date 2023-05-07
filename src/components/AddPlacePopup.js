@@ -12,8 +12,10 @@ function AddPlacePopup(props) {
       link: cardLink,
     });
   }
+
   return (
     <PopupWithForm
+      openPopup={props.openPopup}
       onSubmit={handleSubmit}
       name="cards-add"
       title="Новое место"

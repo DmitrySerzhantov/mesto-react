@@ -38,24 +38,39 @@ function App() {
     const isLiked = card.card.likes.some((i) => i._id === currentUser._id);
 
     if (!isLiked) {
-      api.likeCard(card.id).then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card.id ? newCard : c))
-        );
-      });
+      api
+        .likeCard(card.id)
+        .then((newCard) => {
+          setCards((state) =>
+            state.map((c) => (c._id === card.id ? newCard : c))
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
-      api.deleteLikeCard(card.id).then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card.id ? newCard : c))
-        );
-      });
+      api
+        .deleteLikeCard(card.id)
+        .then((newCard) => {
+          setCards((state) =>
+            state.map((c) => (c._id === card.id ? newCard : c))
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card.id).then(() => {
-      setCards((cards) => cards.filter((c) => c._id !== card.id));
-    });
+    api
+      .deleteCard(card.id)
+      .then(() => {
+        setCards((cards) => cards.filter((c) => c._id !== card.id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   React.useEffect(() => {
@@ -109,6 +124,7 @@ function App() {
         console.log(err);
       });
   }
+  const [openPopup, setOpenPopup] = React.useState();
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -118,14 +134,16 @@ function App() {
           cards={cards}
           onCardDelete={handleCardDelete}
           onCardLike={handleCardLike}
-          onEditAvatar={() => {
+          onEditAvatar={(e) => {
             setisEditAvatarPopupOpen(true);
+            setOpenPopup(e);
           }}
           onEditProfile={() => {
             setIsEditProfilePopupOpen(true);
           }}
-          onAddPlace={() => {
+          onAddPlace={(e) => {
             setisAddPlacePopupOpen(true);
+            setOpenPopup(e);
           }}
           setSelectedCard={(card) => {
             setSelectedCard({ value: true, ...card });
@@ -133,6 +151,7 @@ function App() {
         />
         <Footer />
         <AddPlacePopup
+          openPopup={openPopup}
           onAddPlace={handleAddPlaceSubmit}
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
@@ -149,6 +168,7 @@ function App() {
           textButton="Да"
         ></PopupWithForm>
         <EditAvatarPopup
+          openPopup={openPopup}
           onUpdateAvatar={handleUpdateAvatar}
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
