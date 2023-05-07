@@ -1,12 +1,6 @@
 import React from "react";
-import { useRef } from "react";
 
 function PopupWithForm(props) {
-  const ref = useRef();
-  React.useEffect(() => {
-    ref.current.reset();
-  }, [props.openPopup]);
-
   return (
     <div
       className={`popup popup-${props.name} ${props.isOpen && "popup_open"}`}
@@ -21,7 +15,6 @@ function PopupWithForm(props) {
           noValidate
           id={props.id}
           onSubmit={props.onSubmit}
-          ref={ref}
         >
           {props.children}
           <button

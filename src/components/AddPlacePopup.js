@@ -13,6 +13,10 @@ function AddPlacePopup(props) {
     });
   }
 
+  React.useEffect(() => {
+    setCardName("");
+    setCardLink("");
+  }, [props.isOpen]);
   return (
     <PopupWithForm
       openPopup={props.openPopup}
@@ -32,6 +36,7 @@ function AddPlacePopup(props) {
         className="popup__input popup__input_text_name-card"
         name="nameCards"
         placeholder="Название"
+        value={cardName ?? ""}
         onChange={(e) => setCardName(e.target.value)}
       />
       <span id="input-name-card-error" className="popup__text-error">
@@ -44,6 +49,7 @@ function AddPlacePopup(props) {
         className="popup__input popup__input_img_link"
         name="linkImg"
         placeholder="Ссылка на картинку"
+        value={cardLink ?? ""}
         onChange={(e) => setCardLink(e.target.value)}
       />
       <span id="input-link-error" className="popup__text-error">
