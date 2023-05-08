@@ -40,12 +40,11 @@ function Main(props) {
         ></button>
       </section>
       <ul className="cards" aria-label="контентная часть страницы">
-        {props.cards.map(({ _id, ...card }) => (
+        {props.cards.map((card) => (
           <Card
             onCardDelete={props.onCardDelete}
             onCardLike={props.onCardLike}
-            key={_id}
-            id={_id}
+            key={card._id}
             card={card}
             onCardClick={handleCardClick}
           />

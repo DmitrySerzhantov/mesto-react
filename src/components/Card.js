@@ -30,7 +30,7 @@ function Card(props) {
       {isOwn && (
         <button
           onClick={() => {
-            handleDeleteClick({ cards: props.card, id: props.id });
+            handleDeleteClick(props.card);
           }}
           className="cards__trash"
           aria-label="удалить карточку"
@@ -44,7 +44,7 @@ function Card(props) {
             type="button"
             aria-label="лайк для карточки"
             onClick={() => {
-              handleLikeClick(props);
+              handleLikeClick(props.card);
             }}
           ></button>
           <p className="cards__like-counter">{props.card.likes.length}</p>

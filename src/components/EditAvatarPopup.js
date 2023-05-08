@@ -4,7 +4,7 @@ import { useRef } from "react";
 
 function EditAvatarPopup(props) {
   const ref = useRef();
-  const [avatar, setAvatar] = React.useState("");
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -34,8 +34,6 @@ function EditAvatarPopup(props) {
         name="linkImg"
         placeholder="Ссылка на картинку"
         ref={ref}
-        value={avatar ?? ""}
-        onChange={(e) => setAvatar(e.target.value)}
       />
       <span id="input-avatar-error" className="popup__text-error">
         {""}
